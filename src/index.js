@@ -16,34 +16,3 @@ window.onload = () => {
   })
 }
 // registerServiceWorker();
-
-
-const store = {
-  mainMenu: {
-    isOpen: false,
-    primaryMenuItems: [],
-    toolbarMenuitems: []
-  },
-  miniCart: { isOpen: false},
-  appShellData: {
-    // store from server
-  },
-  quickSearch: {
-    isOpen: false,
-    searchText: "",
-    history: [],
-  },
-  footer: {},
-  currentUser: { email: "" },
-  cart: {
-    addedItems: [],
-    removedItems: [
-      // to track which items the customer has removed, quantity is irrelevant
-    ]
-  },
-  currency: "SEK",
-  isLoading: false,
-  isShippingFree: false,
-  items: [],
-  subTotal: 0,
-}
