@@ -36,14 +36,23 @@ export default (req, res, next) => {
     const extraChunks = extractAssets(manifest, modules)
       .map(chunk => `<script type="text/javascript" src="/${chunk}"></script>`);
 
+    // test data injection
+    const dummyState = {
+      test: true
+    }
+    const injectData = `
+      <script type="text/javascript">
+        window.__PRELOADED_STATE__ = ${JSON.stringify(dummyState)}
+      </script>
+    `
     return res.send(
       htmlData.replace(
         '<div id="root"></div>',
-        `${html}`
+        `<div id="root">${html}</div>`
       )
       .replace(
         '</body>',
-        extraChunks.join('') + '</body>'
+        extraChunks.join('') + injectData + '</body>'
       )
     )
   })
