@@ -1,22 +1,14 @@
 import express from 'express'
 import serverRenderer from './middleware/renderer'
 import Loadable from 'react-loadable'
+
 const path = require('path')
+const indexController = require('./controllers/index').default
 
 const PORT = 3001
 const app = express()
-const router = express.Router()
 
-
-
-router.use('^/$', serverRenderer)
-router.use(express.static(
-  path.resolve(__dirname, '..', 'build'),
-  { maxAge: '30d' }
-))
-router.use('*', serverRenderer)
-
-app.use(router)
+app.use(indexController)
 
 Loadable.preloadAll().then(() => {
   app.listen(PORT, (error) => {

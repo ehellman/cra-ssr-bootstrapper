@@ -11,5 +11,6 @@ require('babel-register')({
     'react-loadable/babel'
   ]
 })
+require('babel-polyfill')
 
 require('./index')

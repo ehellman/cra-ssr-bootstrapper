@@ -1,0 +1,8 @@
+{
+  "pages": [
+    { "id": 1, "name": "Home", "path": "/", "children": [] },
+    { "id": 2, "name": "List", "path": "/list", "children": [
+      { "id": 1, "name": "Details", "path": "/list/:id", "children": [] }
+    ]}
+  ]
+}
