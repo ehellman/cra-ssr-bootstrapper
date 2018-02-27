@@ -7,8 +7,10 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^3.1.1",
+    "cross-env": "^5.1.3",
     "express": "^4.16.2",
     "ignore-styles": "^5.0.1",
+    "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-loadable": "^5.3.1",
@@ -28,8 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "start:server": "NODE_ENV=production node lib/server/bootstrap.js",
-    "build:server": "NODE_ENV=production babel src --out-dir lib --copy-files --presets=es2015,react-app --plugins=syntax-dynamic-import,dynamic-import-node,react-loadable/babel",
-    "ssr": "npm run build && npm run build:server && npm run start:server"
+    "start:server": "cross-env NODE_ENV=production node build/server.bundle.js",
+    "build:server": "cross-env NODE_ENV=production NODE_PATH=src/ node_modules/webpack/bin/webpack.js --config ./server/server.webpack.config.js",
+    "ssr": "npm run build && npm run build:server && nodemon build/server.bundle.js"
   }
 }

@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import Loadable from 'react-loadable'
 import { connect } from 'react-redux'
 import { styled } from 'styletron-react'
-
-import Navigation from './features/Navigation'
 import { setMessage } from './actions'
+import corgi from './corgi.png'
 
 const Wrapper = styled('div', props => ({
   textAlign: 'center'
@@ -29,11 +28,10 @@ const Intro = styled('p', props => ({
 }))
 Intro.displayName = 'App.Intro'
 
-const Logo = styled('div', ({ centered }) => ({
+const Logo = styled('img', ({ centered }) => ({
   animation: 'logo-spin infinite 20s linear',
   width: '80px',
   height: '80px',
-  backgroundColor: '#00d8ff',
   ...centered && {
     marginRight: 'auto',
     marginLeft: 'auto',
@@ -71,9 +69,8 @@ class App extends Component {
     return (
       <Wrapper>
         <Header>
-          <Logo centered />
+          <Logo centered src={corgi} />
           <Title>Welcome to {this.state.message}</Title>
-          <Navigation></Navigation>
         </Header>
         <Intro>
           To get started, edit <code>src/App.js</code> and save to reload.

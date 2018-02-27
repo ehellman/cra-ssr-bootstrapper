@@ -1,7 +1,7 @@
 import express from 'express'
 import serverRenderer from '../middleware/renderer'
-import configureStore from '../../store'
-import { setMessage } from '../../actions'
+import configureStore from '../../src/store'
+import { setMessage } from '../../src/actions'
 const router = express.Router()
 const path = require('path')
 
@@ -18,7 +18,7 @@ const indexAction = (request, response, next) => {
 router.use('^/$', indexAction)
 
 router.use(express.static(
-  path.resolve(__dirname, '..', '..', '..', 'build'),
+  path.resolve(__dirname, '..', 'build'),
   { maxAge: '30d' },
 ))
 
