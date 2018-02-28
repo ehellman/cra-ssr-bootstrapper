@@ -15,11 +15,12 @@ const indexAction = (request, response, next) => {
   serverRenderer(store)(request, response, next)
 }
 
+// for some reason, the order of these router. - statements is super important
 router.use('^/$', indexAction)
-
 router.use(express.static(
   path.resolve(__dirname, '..', 'build'),
   { maxAge: '30d' },
 ))
+router.use('*', indexAction)
 
 export default router

@@ -14,7 +14,31 @@ function appReducer(state = initialState, action) {
   }
 }
 
-function pageReducer(state = { pages: [] }, action) {
+const pageState = [
+  {
+    id: 1,
+    name: 'Home',
+    path: '/',
+    Component: 'Home',
+    children: []
+  },
+  {
+    id: 2,
+    name: 'List',
+    path: '/list',
+    Component: 'List',
+    children: [
+      {
+        id: 1,
+        name: 'Details',
+        Component: 'Details',        
+        path: '/:id',
+        children: []
+      }
+    ]
+  }
+]
+function pageReducer(state = pageState, action) {
   switch (action.type) {
     case 'LOAD_PAGES':
       return state
@@ -23,7 +47,19 @@ function pageReducer(state = { pages: [] }, action) {
   }
 }
 
+function peopleReducer(state = [], action) {
+  switch (action.type) {
+    case 'UPDATE_PEOPLE':
+      return [ 
+        ...action.payload 
+      ]
+    default:
+      return state
+  }
+}
+
 export default {
   app: appReducer,
   pages: pageReducer,
+  people: peopleReducer,
 }

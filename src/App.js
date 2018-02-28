@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import Loadable from 'react-loadable'
 import { connect } from 'react-redux'
 import { styled } from 'styletron-react'
+import Navigation from './components/Navigation'
 import { setMessage } from './actions'
+import { withRouter } from 'react-router-dom'
 import corgi from './corgi.png'
+import FeatureRouter from './components/FeatureRouter'
 
 const Wrapper = styled('div', props => ({
   textAlign: 'center'
@@ -23,11 +25,6 @@ const Title = styled('h1', props => ({
 }))
 Title.displayName = 'App.Title'
 
-const Intro = styled('p', props => ({
-  fontSize: 'large',
-}))
-Intro.displayName = 'App.Intro'
-
 const Logo = styled('img', ({ centered }) => ({
   animation: 'logo-spin infinite 20s linear',
   width: '80px',
@@ -38,12 +35,6 @@ const Logo = styled('img', ({ centered }) => ({
   }
 }))
 Logo.displayName = 'App.Logo'
-
-const AsyncComponent = Loadable({
-  loader: () => import(/* webpackChunkName: "myChunk" */'./SomeComponent'),
-  loading: () => <div>Loading...</div>,
-  modules: ['myChunk']
-})
 
 class App extends Component {
   constructor() {
@@ -72,21 +63,21 @@ class App extends Component {
           <Logo centered src={corgi} />
           <Title>Welcome to {this.state.message}</Title>
         </Header>
-        <Intro>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </Intro>
-        <AsyncComponent />
+        <Navigation pages={this.props.pages} />
+        <FeatureRouter pages={this.props.pages} />
       </Wrapper>
     )
   }
 }
 
-
-export default connect(
-  ({ app }) => ({ 
-    message: app.message 
-  }),
-  dispatch => ({
-    updateMessage: msg => dispatch(setMessage(msg))
-  })
-)(App)
+export default withRouter(
+  connect(
+    ({ app, pages }) => ({ 
+      message: app.message,
+      pages: pages
+    }),
+    dispatch => ({
+      updateMessage: msg => dispatch(setMessage(msg))
+    })
+  )(App)
+)

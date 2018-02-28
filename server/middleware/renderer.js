@@ -32,9 +32,11 @@ export default (store = {}) => (request, response, next) => {
       const appString = ReactDOMServer.renderToString(
         <Provider store={store}>
           <StyletronProvider styletron={styletronInstance}>
-            <Loadable.Capture report={mod => modules.push(mod)}>
-              <App />
-            </Loadable.Capture>
+            <StaticRouter location={request.originalUrl} context={{}}>
+              <Loadable.Capture report={mod => modules.push(mod)}>
+                <App />
+              </Loadable.Capture>
+            </StaticRouter>            
           </StyletronProvider>
         </Provider>
       )
@@ -42,7 +44,7 @@ export default (store = {}) => (request, response, next) => {
       const stylesForHead = styletronInstance.getStylesheetsHtml()
 
       const appChunks = extractAssets(manifest, modules)
-        .map(chunk => `<script src="/${chunk}"></script>`);
+        .map(chunk => `<script type="text/javascript" src="/${chunk}"></script>`);
       return response.send(
         htmlData
           .replace(

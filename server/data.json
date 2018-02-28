@@ -1,8 +1,8 @@
 {
   "pages": [
-    { "id": 1, "name": "Home", "path": "/", "children": [] },
-    { "id": 2, "name": "List", "path": "/list", "children": [
-      { "id": 1, "name": "Details", "path": "/list/:id", "children": [] }
+    { "id": 1, "name": "Home", "Component": "Home", "path": "/", "children": [] },
+    { "id": 2, "name": "List", "Component": "List", "path": "/list", "children": [
+      { "id": 1, "name": "Details", "Component": "Details", "path": "/:id", "children": [] }
     ]}
   ]
 }

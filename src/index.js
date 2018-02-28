@@ -7,6 +7,7 @@ import App from './App'
 import Styletron from 'styletron-client'
 import { StyletronProvider } from 'styletron-react'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 import configureStore from './store'
 
 const store = configureStore(window.__PRELOADED_STATE__ || {})
@@ -20,11 +21,15 @@ const styletronInstance = styleElements.length > 0 ?
   new Styletron(styleElements) :
   new Styletron()
 
-function hydrateApp(Root) {
-  return ReactDOM.hydrate(
+// if application is client only, pass ReactDOM.render
+// if server render is enabled, pass ReactDOM.hydrate
+function renderApp(renderFunction, Root) {
+  return renderFunction(
     <Provider store={store}>
       <StyletronProvider styletron={styletronInstance}>
-        <Root />
+        <BrowserRouter>
+          <Root />
+        </BrowserRouter>
       </StyletronProvider>
     </Provider>, 
     document.getElementById('root')
@@ -32,11 +37,13 @@ function hydrateApp(Root) {
 }
 // preload when browser is ready
 window.onload = () => 
-  Loadable.preloadReady().then(() => hydrateApp(App))
+  Loadable.preloadReady().then(() => 
+    renderApp(ReactDOM.hydrate, App)
+  )
 
 if (module.hot) {
   module.hot.accept(() => {
-    hydrateApp(App);
+    renderApp(ReactDOM.render, App);
   })
 }
 

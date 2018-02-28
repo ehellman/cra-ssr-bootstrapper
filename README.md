@@ -15,4 +15,5 @@ Features that work out of the box include:
 Fixes to do before 1.0
 - [x] Create server bundle instead of transpiling to be able to include assets such as `PNG`.
 - [ ] Documentation that describes which files to copy into a create-react-app directory and which dependencies to add.
-- [ ] Increase example project to have several code split routes
+- [x] Increase example project to have several code split routes
+- [ ] Enable NODE_PATH=src/ so that absolute paths can be used

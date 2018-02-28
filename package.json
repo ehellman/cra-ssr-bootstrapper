@@ -1,6 +1,7 @@
 {
   "name": "cra-ssr",
   "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -31,7 +32,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "start:server": "cross-env NODE_ENV=production node build/server.bundle.js",
-    "build:server": "cross-env NODE_ENV=production NODE_PATH=src/ node_modules/webpack/bin/webpack.js --config ./server/server.webpack.config.js",
+    "build:server": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --config ./server/server.webpack.config.js",
     "ssr": "npm run build && npm run build:server && nodemon build/server.bundle.js"
   }
 }
