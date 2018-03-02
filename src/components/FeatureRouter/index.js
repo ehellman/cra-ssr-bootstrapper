@@ -22,22 +22,30 @@ const features = {
   }),
 }
 
-const mapStringToComponent = componentString => features[componentString]
-export default function FeatureRuter({ pages }) {
-  return (
-    <Switch>
-      {
-        pages.map(({ 
-          path, 
-          children, 
-          Component,
-        }) => [
-          children.map((child) =>
-            <Route path={join(path, child.path)} component={mapStringToComponent(child.Component)} key={child.path} />
-          ),
-          <Route exact={!children.length > 0} path={path} component={mapStringToComponent(Component)} key={path} />
-        ])
-      }
-    </Switch>
-  )
+class FeatureRuter extends React.Component {
+  mapStringToComponent = componentString => features[componentString]
+  render() {
+    const {
+      pages
+    } = this.props
+    return (
+      <Switch>
+        {
+          pages.map(({ 
+            path, 
+            children, 
+            Component,
+          }) => [
+            children.map((child) =>
+              <Route path={join(path, child.path)} component={this.mapStringToComponent(child.Component)} key={child.path} />
+            ),
+            <Route exact={!children.length > 0} path={path} component={this.mapStringToComponent(Component)} key={path} />
+          ])
+        }
+      </Switch>
+    )
+  }
 }
+
+FeatureRuter.features = features
+export default FeatureRuter
